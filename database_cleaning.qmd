@@ -1,0 +1,64 @@
+---
+title: "PEG database cleaning"
+subtitle: Feb 1, 2024
+author: Scarlett Yu
+format:
+  html:
+    theme: cosmo
+    embed-resources: true
+    number-sections: false
+    toc: true
+    toc-depth: 4
+    toc-location: left
+    code-fold: false
+knitr:
+  opts_chunk: 
+    cache: false    
+    echo: true
+    fig.align: 'center'
+    fig.width: 6
+    fig.height: 4
+    message: FALSE
+---
+
+Display machine information for reproducibility:
+```{r}
+#| eval: false
+sessionInfo()
+```
+
+## Mail tracking cleaning
+Database:  Case_recruitment_contact_manager.accdb 
+
+Pathway: Ritz-peg-nas > peg_boss > PD Projects (PEG-Boss) > PEG Collection and Contact Databases > PEG Databases ACTIVE > PEG3 > Case_recruitment_contact_manager.accdb 
+
+Variable: 
+
+mail_status_1 
+
+If mail_status_1 = (interested; deceased; refused; returned mailing (returned reasons not 1,7,8,9)), clear mailing information of other attempts (mail 2, mail 3, mail 4, mail 5) 
+
+Screeningstatus 
+
+If mail_status_1 or mail_status_2 = interested but ScreeningStatus is null 
+
+Update ScreeningStatus if screening was completed  
+
+Or output MailID as “pending screening”  
+
+If mail_status_1 or mail_status_2 = deceased or refused 
+
+Update ScreeningStatus to the corresponding status 
+
+If mail_status_1 or mail_status_2 =returned mailing AND mailstatus_returnmaling_reason is in (2,3,4,5,6,11,12,13), mark screening status = “0 - unable to contact” 
+
+Mail_code 
+
+Each subject responded to mailing should be assigned a mail code 
+
+## Recruitment results cleaning
+1. Complete all mail tracking cleaning above 
+
+2. HHctrl information synchronization: 
+    a. cross check between case & hh database
+    HHctrl database & case database – Matched_ID,  Matched_Control_Name 
