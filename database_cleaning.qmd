@@ -52,13 +52,17 @@ Update ScreeningStatus to the corresponding status
 
 If mail_status_1 or mail_status_2 =returned mailing AND mailstatus_returnmaling_reason is in (2,3,4,5,6,11,12,13), mark screening status = “0 - unable to contact” 
 
+If Screening_status is filled but mail_status_1 or mail_status_2 is null, update mail_status_1 or mail_status_2.
+
 Mail_code 
 
 Each subject responded to mailing should be assigned a mail code 
 
 ## Recruitment results cleaning
-1. Complete all mail tracking cleaning above 
+1. Complete all mail tracking cleaning above.
 
 2. HHctrl information synchronization: 
-    a. cross check between case & hh database
-    HHctrl database & case database – Matched_ID,  Matched_Control_Name 
+    i) cross check between case & hh database
+    ii) HHctrl database & case database – `Matched_ID`,  `Matched_Control_Name` 
+    
+Dx_status
